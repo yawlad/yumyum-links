@@ -89,23 +89,23 @@ const LinksPage: FC = () => {
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 px-2">
             <div className="bg-white rounded-xl max-w-sm w-full max-h-[90dvh] overflow-y-auto p-5 pb-0 text-center relative">
-              <h2 className="text-xl font-semibold mb-4 text-gray-800">
+              <h2 className="text-2xl font-semibold mb-4 text-gray-800">
                 Не открывается Telegram?
               </h2>
-              <div className="space-y-3 mb-5">
+              <div className="flex justify-center gap-4">
                 <Image
                   src="/help_1.jpg"
                   alt="Подсказка 1"
                   width={300}
                   height={200}
-                  className="rounded-lg w-full h-auto object-contain"
+                  className="rounded-lg w-[45%] h-auto object-contain"
                 />
                 <Image
                   src="/help_2.jpg"
                   alt="Подсказка 2"
                   width={300}
                   height={200}
-                  className="rounded-lg w-full h-auto object-contain"
+                  className="rounded-lg w-[45%] h-auto object-contain"
                 />
               </div>
               <div className="flex justify-between flex-col gap-2 sticky bottom-0 bg-white py-2">
