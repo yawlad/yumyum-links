@@ -41,6 +41,8 @@ const links: SocialLink[] = [
     name: "Интернет-магазин",
     href: "https://8001.emall.by",
     icon: faCartShopping,
+
+    
   },
 ];
 
@@ -57,7 +59,7 @@ const LinksPage: FC = () => {
 
   const proceedToTelegram = () => {
     setShowModal(false);
-    window.open("https://t.me/yumyum_asianshop", "_blank");
+    window.open("https://t.me/+5O6z10MRWQ9lYmU6", "_blank");
   };
 
   return (
