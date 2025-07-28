@@ -25,6 +25,7 @@ export default function RootLayout({
         className={`${exo2.className} antialiased`}
       >
         {children}
+         <Analytics />
       </body>
     </html>
   );
