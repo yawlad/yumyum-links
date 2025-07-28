@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Exo_2 } from 'next/font/google';
+import { Analytics } from "@vercel/analytics/next"
 
 const exo2 = Exo_2({
   subsets: ['latin', 'cyrillic'],
