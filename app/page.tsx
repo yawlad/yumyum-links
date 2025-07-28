@@ -33,7 +33,8 @@ const links: SocialLink[] = [
   },
   {
     name: "Telegram",
-    href: "https://t.me/yumyum_asianshop",
+    // href: "https://t.me/yumyum_asianshop",
+    href: "https://t.me/+5O6z10MRWQ9lYmU6",
     icon: faTelegram,
   },
   {
