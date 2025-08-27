@@ -41,17 +41,30 @@ const links: SocialLink[] = [
     name: "Интернет-магазин",
     href: "https://8001.emall.by",
     icon: faCartShopping,
-
-    
   },
 ];
 
 const LinksPage: FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [timer, setTimer] = useState(0);
 
   const handleLinkClick = (name: string, href: string) => {
     if (name === "Telegram") {
       setShowModal(true);
+      setIsButtonDisabled(true);
+      setTimer(5);
+
+      // запускаем обратный отсчёт
+      let count = 5;
+      const interval = setInterval(() => {
+        count -= 1;
+        setTimer(count);
+        if (count === 0) {
+          setIsButtonDisabled(false);
+          clearInterval(interval);
+        }
+      }, 1000);
     } else {
       window.open(href, "_blank");
     }
@@ -120,9 +133,16 @@ const LinksPage: FC = () => {
                 </button>
                 <button
                   onClick={proceedToTelegram}
-                  className="w-full cursor-pointer bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition duration-200"
+                  disabled={isButtonDisabled}
+                  className={`w-full cursor-pointer px-4 py-2 rounded-full transition duration-200 ${
+                    isButtonDisabled
+                      ? "bg-gray-400 text-white cursor-not-allowed"
+                      : "bg-pink-500 hover:bg-pink-600 text-white"
+                  }`}
                 >
-                  Перейти в Telegram
+                  {isButtonDisabled
+                    ? `ЕСЛИ ТЕЛЕГРАМ НЕ ОТКРЫЛСЯ - ИНСТРУКЦИЯ ВЫШЕ ⬆️ (${timer}с)`
+                    : "Перейти в Telegram"}
                 </button>
               </div>
             </div>
