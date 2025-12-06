@@ -6,6 +6,7 @@ import {
   faInstagram,
   faTiktok,
   faTelegram,
+  IconDefinition,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faCartShopping,
@@ -18,7 +19,7 @@ import TelegramModal from "@/components/TelegramModal";
 interface SocialLink {
   name: string;
   href: string;
-  icon: any;
+  icon: IconDefinition;
 }
 
 const links: SocialLink[] = [
