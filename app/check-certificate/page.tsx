@@ -20,15 +20,14 @@ export default function CheckCertificatePage() {
     e.preventDefault();
 
     setLoading(true);
-    setResult(null);
-    setError("");
 
     const res = await fetch("/api/check-certificate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ number: code }),
     });
-
+    setResult(null);
+    setError("");
     const data = await res.json();
 
     setLoading(false);
@@ -61,20 +60,20 @@ export default function CheckCertificatePage() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full cursor-pointer px-4 py-3 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-2xl hover:bg-white transition-all duration-300 text-gray-700 group
-            ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
+            className={`w-full px-4 py-3 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-2xl hover:bg-white transition-all duration-300 text-gray-700 group
+            ${loading ? "opacity-70 cursor-not-allowed" : "cursor-pointer"}`}
           >
-            {loading && (
-              <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-            )}
-            {loading ? (
-              "Проверяем..."
-            ) : (
-              <div className=" text-pink-500 group-hover:scale-105 transition-transform flex items-center justify-center gap-2">
+            <div className=" text-pink-500 group-hover:scale-105 transition-transform flex items-center justify-center gap-2">
+              {loading ? (
+                <span className="w-5 h-5 border-2 border-gray-800 border-t-transparent rounded-full animate-spin"></span>
+              ) : (
                 <FontAwesomeIcon icon={faCheckCircle} className="text-[28px]" />
-                <span className="text-gray-800 text-[20px]">Проверить</span>
-              </div>
-            )}
+              )}
+
+              <span className="text-gray-800 text-[20px]">
+                {loading ? "Проверяем..." : "Проверить"}
+              </span>
+            </div>
           </button>
         </form>
 
