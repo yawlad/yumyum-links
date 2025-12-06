@@ -21,7 +21,7 @@ const TelegramModal: FC<TelegramModalProps> = ({
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 px-2">
+    <div className="fixed inset-0 bg-[#000000aa] flex items-center justify-center z-50 px-2">
       <div className="bg-white rounded-xl max-w-sm w-full max-h-[90dvh] overflow-y-auto p-5 pb-0 text-center relative">
         <h2 className="text-2xl font-semibold mb-4 text-gray-800">
           Не открывается Telegram?

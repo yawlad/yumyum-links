@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "A:E", // id, number, date_of_issue, date_of_expire, is_active
+      range: "A:E", // id, number, date_of_issue, validity_period, is_activated
     });
 
     const rows = res.data.values;

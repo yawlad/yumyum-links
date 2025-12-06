@@ -1,3 +1,16 @@
 @import "tailwindcss";
 
+.main_bg {
+  /* background: radial-gradient(#fca5bf 0%, #ff4375 100%); */
+  background-color: #fe67a4;
+}
 
+.main_smiles_bg {
+  background-image: url("/smiles_gradient.svg");
+  mask-repeat: repeat;
+  mask-size: 300px;
+}
+
+/* .big-shadow {
+  box-shadow: 0px 0px 500px rgba(0, 0, 0,);
+} */

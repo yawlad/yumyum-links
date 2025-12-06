@@ -1,5 +1,7 @@
 "use client";
 
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export default function CheckCertificatePage() {
@@ -8,8 +10,8 @@ export default function CheckCertificatePage() {
   const [result, setResult] = useState<null | {
     number: string;
     date_of_issue: string;
-    date_of_expire: string;
-    is_active: boolean;
+    validity_period: string;
+    is_activated: boolean;
   }>(null);
 
   const [error, setError] = useState("");
@@ -40,9 +42,10 @@ export default function CheckCertificatePage() {
   };
 
   return (
-    <main className="min-h-[100dvh] bg-gradient-to-br from-pink-400 to-yellow-200 flex items-center justify-center px-4">
-      <div className="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full">
-        <h1 className="text-2xl font-bold text-center mb-4 text-gray-800">
+    <main className="min-h-[100dvh] main_bg flex items-center justify-center px-4 relative">
+      <div className="absolute inset-0 z-0 main_smiles_bg"></div>
+      <div className="max-w-sm w-full text-center relative p-6 bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#00000055] big-shadow border border-white/30 z-10">
+        <h1 className="text-4xl font-extrabold mb-8 text-white drop-shadow-lg tracking-wide animate-fadeIn text-center">
           Проверка сертификата
         </h1>
 
@@ -58,13 +61,20 @@ export default function CheckCertificatePage() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-xl transition font-medium flex items-center justify-center gap-2
+            className={`w-full cursor-pointer px-4 py-3 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-2xl hover:bg-white transition-all duration-300 text-gray-700 group
             ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
           >
             {loading && (
               <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
             )}
-            {loading ? "Проверяем..." : "Проверить"}
+            {loading ? (
+              "Проверяем..."
+            ) : (
+              <div className=" text-pink-500 group-hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                <FontAwesomeIcon icon={faCheckCircle} className="text-[28px]" />
+                <span className="text-gray-800 text-[20px]">Проверить</span>
+              </div>
+            )}
           </button>
         </form>
 
@@ -88,10 +98,11 @@ export default function CheckCertificatePage() {
               <strong>Дата выдачи:</strong> {result.date_of_issue}
             </p>
             <p>
-              <strong>Дата истечения:</strong> {result.date_of_expire}
+              <strong>Срок действия:</strong> {result.validity_period} месяцев
             </p>
             <p>
-              <strong>Активен:</strong> {result.is_active ? "Да" : "Нет"}
+              <strong>Использован ли:</strong>{" "}
+              {result.is_activated ? "Да" : "Нет"}
             </p>
           </div>
         )}
