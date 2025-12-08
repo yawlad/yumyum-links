@@ -4,13 +4,20 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
+function parseCustomDate(dateStr: string) {
+  if (!dateStr) return null;
+
+  const [day, month, year] = dateStr.split(".");
+  return new Date(`${year}-${month}-${day}`);
+}
+
 export default function CheckCertificatePage() {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<null | {
     number: string;
     date_of_issue: string;
-    validity_period: string;
+    validity_period: number;
     is_activated: boolean;
   }>(null);
 
@@ -86,25 +93,77 @@ export default function CheckCertificatePage() {
         )}
 
         {/* Результат */}
-        {result && (
-          <div className="mt-4 p-4 bg-green-100 border-l-4 border-green-600 text-green-800 rounded-lg animate-fadeIn">
-            <p className="font-semibold mb-2">Сертификат найден</p>
+        {result &&
+          (() => {
+            const issuedDate = result.date_of_issue
+              ? parseCustomDate(result.date_of_issue)
+              : null;
+            const now = new Date();
 
-            <p>
-              <strong>Номер:</strong> {result.number}
-            </p>
-            <p>
-              <strong>Дата выдачи:</strong> {result.date_of_issue}
-            </p>
-            <p>
-              <strong>Срок действия:</strong> {result.validity_period} месяцев
-            </p>
-            <p>
-              <strong>Использован ли:</strong>{" "}
-              {result.is_activated ? "Да" : "Нет"}
-            </p>
-          </div>
-        )}
+            let isExpired = false;
+            let isActivated = result.is_activated;
+            let isNotIssued = !issuedDate;
+
+            // Если дата выдачи есть — считаем срок действия
+            if (issuedDate) {
+              const expiryDate = new Date(issuedDate);
+              console.log(expiryDate);
+              expiryDate.setMonth(
+                expiryDate.getMonth() + +result.validity_period
+              );
+              console.log(expiryDate.getMonth());
+              isExpired = now > expiryDate;
+            }
+
+            // Определяем стили и заголовки
+            let boxStyle = "mt-4 p-4 border-l-4 rounded-lg animate-fadeIn ";
+            let colorStyle = "";
+            let title = "";
+
+            if (isNotIssued) {
+              colorStyle = "bg-blue-100 border-blue-600 text-blue-800";
+              title = "Сертификат найден, но ещё не выдан";
+            } else if (isActivated) {
+              colorStyle = "bg-red-100 border-red-600 text-red-800";
+              title = "Сертификат уже использован";
+            } else if (isExpired) {
+              colorStyle = "bg-yellow-100 border-yellow-600 text-yellow-800";
+              title = "Срок действия сертификата истёк";
+            } else {
+              colorStyle = "bg-green-100 border-green-600 text-green-800";
+              title = "Сертификат действующий";
+            }
+
+            return (
+              <div className={`${boxStyle} ${colorStyle}`}>
+                <p className="font-semibold mb-2">{title}</p>
+
+                <p>
+                  <strong>Номер:</strong> {result.number}
+                </p>
+
+                {issuedDate ? (
+                  <>
+                    <p>
+                      <strong>Дата выдачи:</strong> {result.date_of_issue}
+                    </p>
+                    <p>
+                      <strong>Срок действия:</strong> {result.validity_period}{" "}
+                      месяцев
+                    </p>
+                  </>
+                ) : (
+                  <p>
+                    <strong>Дата выдачи:</strong> —
+                  </p>
+                )}
+
+                <p>
+                  <strong>Использован ли:</strong> {isActivated ? "Да" : "Нет"}
+                </p>
+              </div>
+            );
+          })()}
       </div>
     </main>
   );
