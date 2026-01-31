@@ -27,12 +27,12 @@ interface SocialLink {
 const links: SocialLink[] = [
   {
     name: "Instagram",
-    href: "https://www.instagram.com/yumyum.asianshop/",
+    href: "https://www.instagram.com/shoop.yumyum/",
     icon: faInstagram,
   },
   {
     name: "TikTok",
-    href: "https://www.tiktok.com/@asianshopyumyum",
+    href: "https://www.tiktok.com/@shop.yumyum",
     icon: faTiktok,
   },
   {
